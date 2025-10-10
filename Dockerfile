@@ -476,7 +476,7 @@ ENV QT_IM_MODULE=fcitx
 ENV XIM=fcitx
 ENV XMODIFIERS="@im=fcitx"
 
-# Wine, Winetricks, and launchers, this process must be consistent with https://wiki.winehq.org/Ubuntu
+# Wine, Winetricks, and gaming launchers (Warplay block)
 ARG WINE_BRANCH=staging
 RUN if [ "$(dpkg --print-architecture)" = "amd64" ]; then \
     mkdir -pm755 /etc/apt/keyrings && curl -fsSL -o /etc/apt/keyrings/winehq-archive.key "https://dl.winehq.org/wine-builds/winehq.key" && \
@@ -485,7 +485,9 @@ RUN if [ "$(dpkg --print-architecture)" = "amd64" ]; then \
         winehq-${WINE_BRANCH} && \
     apt-get install --no-install-recommends -y \
         q4wine \
-        playonlinux && \
+        playonlinux \ 
+        # Warplay Block
+        steam-installer && \ # Warplay Block
     LUTRIS_VERSION="$(curl -fsSL "https://api.github.com/repos/lutris/lutris/releases/latest" | jq -r '.tag_name' | sed 's/[^0-9\.\-]*//g')" && \
     cd /tmp && curl -o lutris.deb -fsSL "https://github.com/lutris/lutris/releases/download/v${LUTRIS_VERSION}/lutris_${LUTRIS_VERSION}_all.deb" && apt-get install --no-install-recommends -y ./lutris.deb && rm -f lutris.deb && \
     HEROIC_VERSION="$(curl -fsSL "https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest" | jq -r '.tag_name' | sed 's/[^0-9\.\-]*//g')" && \
