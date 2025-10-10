@@ -486,8 +486,9 @@ RUN if [ "$(dpkg --print-architecture)" = "amd64" ]; then \
     apt-get install --no-install-recommends -y \
         q4wine \
         playonlinux \ 
-        # Warplay Block
-        steam-installer && \ # Warplay Block
+# Warplay Block
+        steam-installer && \
+# Warplay Block
     LUTRIS_VERSION="$(curl -fsSL "https://api.github.com/repos/lutris/lutris/releases/latest" | jq -r '.tag_name' | sed 's/[^0-9\.\-]*//g')" && \
     cd /tmp && curl -o lutris.deb -fsSL "https://github.com/lutris/lutris/releases/download/v${LUTRIS_VERSION}/lutris_${LUTRIS_VERSION}_all.deb" && apt-get install --no-install-recommends -y ./lutris.deb && rm -f lutris.deb && \
     HEROIC_VERSION="$(curl -fsSL "https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest" | jq -r '.tag_name' | sed 's/[^0-9\.\-]*//g')" && \
